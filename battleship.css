@@ -13,3 +13,7 @@ table{
   display: flex;
   justify-content: center;
 }
+
+.shot{
+  background-color: black;
+}
