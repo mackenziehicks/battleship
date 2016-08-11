@@ -71,17 +71,52 @@ function createBoard() {
 }
 createBoard();
 
-function placeFiveShip(){
-  var index1 = Math.floor(Math.random() * 5);
-  var index2 = Math.floor(Math.random() * 5);
-  for (var i = 0; i < 5; i++) {
-    board[index1][index2 + i];
-    answerKey.push(index1, index2 + i)
-  };}
-    placeFiveShip();
-    console.log(answerKey);
+
+    // placeFiveShip();
+    // console.log(answerKey);
 
 
+  var index1;
+  var index2;
+
+  var ships = {
+    block5: function (){
+        index1 = Math.floor(Math.random() * 10);
+        index2 = Math.floor(Math.random() * 5);
+        for (var i = 0; i < 5; i++) {
+          board[index1][index2 + i];
+          answerKey.push(index1, index2 + i);
+      };},
+    block4: function () {
+      index1 = Math.floor(Math.random() * 10);
+      index2 = Math.floor(Math.random() * 6);
+      for (var i = 0; i < 4; i++) {
+        board[index1][index2 + i];
+        answerKey.push(index1, index2 + i);
+      };},
+    block3: function () {
+      index1 = Math.floor(Math.random() * 10);
+      index2 = Math.floor(Math.random() * 8);
+      for (var i = 0; i < 3; i++) {
+        board[index1][index2 + i];
+        answerKey.push(index1, index2 + i);
+      };},
+    block2: function () {
+      index1 = Math.floor(Math.random() * 10);
+      index2 = Math.floor(Math.random() * 9);
+      for (var i = 0; i < 2; i++) {
+        board[index1][index2 + i];
+        answerKey.push(index1, index2 + i);
+      };},
+    block1: function () {
+       index1 = Math.floor(Math.random() * 10);
+       index2 = Math.floor(Math.random() * 10);
+      // for (var i = 0; i < 1; i++) {
+      //   board[index1][index2 + i];
+      //   answerKey.push(index1, index2 + i);
+      // };
+    }
+  };
 
 //purpose: to place 5 ships at a random index in the array
 //signature: nothing --> returns index
@@ -91,22 +126,22 @@ function placeShip() {
   var counterOfShips = 0;
   //if the counterOfShips is less than 5, the computer will pick a random number and defines it as var index
   while (counterOfShips < 5) {
-    var index1;
-    var index2;
+
+    ships.block1();
       // creating a function to re-assign two variables to two random values
-      function oneBlockShip() {
-        index1 = Math.floor(Math.random() * 10);
-        index2 = Math.floor(Math.random() * 10);
-        console.log(""+index1+index2);
-        }
-      oneBlockShip();
+      // function oneBlockShip() {
+      //   index1 = Math.floor(Math.random() * 10);
+      //   index2 = Math.floor(Math.random() * 10);
+      //   console.log(""+index1+index2);
+      //   }
+      // oneBlockShip();
       var issue = 0;
       function checkTr(){
         console.log("running checkTr");
         // checking each tr for ships right only
         if (index2 === 0) {
           if (board[index1][index2 + 1] === 1) {
-            oneBlockShip();
+            ships.block1();
             console.log("if#1 "+index1+index2);
             issue++;
           };
@@ -114,7 +149,7 @@ function placeShip() {
         //checking each tr for ships left only
         if (index2 === 9) {
           if (board[index1][index2 - 1] === 1) {
-            oneBlockShip();
+            ships.block1();
             console.log("if#2 "+index1+index2);
             issue++;
           };
@@ -123,7 +158,7 @@ function placeShip() {
         if ((!(index2 === 0)) && (!(index2 === 9))) {
           if ((board[index1][index2 - 1] === 1) ||
           (board[index1][index2 + 1] === 1)) {
-            oneBlockShip();
+            ships.block1();
             console.log("if#3 "+index1+index2);
             issue++;
           };
@@ -132,14 +167,14 @@ function placeShip() {
         //checking the top row
         if (index1 ===0) {
           if (board[index1 + 1][index2] === 1) {
-            oneBlockShip();
+            ships.block1();
             console.log("if#4 "+index1+index2);
             issue++;
           };}
           //   //checking the bottom row
         if (index1 === 9) {
           if (board[index1 - 1][index2] === 1) {
-            oneBlockShip();
+            ships.block1();
             console.log("if#5 "+index1+index2);
             issue++;
               };}
@@ -147,11 +182,11 @@ function placeShip() {
         if ((!(index1 === 0)) && (!(index1 === 9))) {
           if ((board[index1 + 1][index2] === 1) ||
             (board[index1 - 1][index2] === 1)) {
-              oneBlockShip();
+              ships.block1();
               console.log("#6" + index1 + index2);
             };};
         if (board[index1][index2] != 0){
-            oneBlockShip();
+            ships.block1();
           console.log("same spot "+index1+index2);
           issue++;
         };
@@ -169,4 +204,4 @@ function placeShip() {
               };
             }
               //
-              // placeShip();
+              placeShip();
