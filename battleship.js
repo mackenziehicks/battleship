@@ -48,11 +48,9 @@ $(document).ready(function(){
       if (counterOfHits < 5 && torpedoesLeft === 0)
       {$("#gameStatus").text("YOU LOSE!");
       //accesses indexes saved in var answerkey and adds the class 'hit'
-      $("#" + answerKey[0] + answerKey [1]).addClass("hit");
-      $("#" + answerKey[2] + answerKey [3]).addClass("hit");
-      $("#" + answerKey[4] + answerKey [5]).addClass("hit");
-      $("#" + answerKey[6] + answerKey [7]).addClass("hit");
-      $("#" + answerKey[8] + answerKey [9]).addClass("hit");
+      for (i =0; i < answerKey.length; i = i+2) {
+        $("#" + answerKey[i] + answerKey[i + 1]).addClass("hit");
+      }
     }
   }); //end of on click
 });// end of document.ready
@@ -73,6 +71,17 @@ function createBoard() {
 }
 createBoard();
 
+function placeFiveShip(){
+  var index1 = Math.floor(Math.random() * 5);
+  var index2 = Math.floor(Math.random() * 5);
+  for (var i = 0; i < 5; i++) {
+    board[index1][index2 + i];
+    answerKey.push(index1, index2 + i)
+  };}
+    placeFiveShip();
+    console.log(answerKey);
+
+
 
 //purpose: to place 5 ships at a random index in the array
 //signature: nothing --> returns index
@@ -82,23 +91,22 @@ function placeShip() {
   var counterOfShips = 0;
   //if the counterOfShips is less than 5, the computer will pick a random number and defines it as var index
   while (counterOfShips < 5) {
-    var index1 = Math.floor(Math.random() * 10);
-    var index2 = Math.floor(Math.random() * 10);
-      console.log(""+index1+index2);
+    var index1;
+    var index2;
       // creating a function to re-assign two variables to two random values
-      function twoNewIndex() {
+      function oneBlockShip() {
         index1 = Math.floor(Math.random() * 10);
         index2 = Math.floor(Math.random() * 10);
-      }
-
+        console.log(""+index1+index2);
+        }
+      oneBlockShip();
       var issue = 0;
       function checkTr(){
         console.log("running checkTr");
-
         // checking each tr for ships right only
         if (index2 === 0) {
           if (board[index1][index2 + 1] === 1) {
-            twoNewIndex();
+            oneBlockShip();
             console.log("if#1 "+index1+index2);
             issue++;
           };
@@ -106,7 +114,7 @@ function placeShip() {
         //checking each tr for ships left only
         if (index2 === 9) {
           if (board[index1][index2 - 1] === 1) {
-            twoNewIndex();
+            oneBlockShip();
             console.log("if#2 "+index1+index2);
             issue++;
           };
@@ -115,7 +123,7 @@ function placeShip() {
         if ((!(index2 === 0)) && (!(index2 === 9))) {
           if ((board[index1][index2 - 1] === 1) ||
           (board[index1][index2 + 1] === 1)) {
-            twoNewIndex();
+            oneBlockShip();
             console.log("if#3 "+index1+index2);
             issue++;
           };
@@ -124,14 +132,14 @@ function placeShip() {
         //checking the top row
         if (index1 ===0) {
           if (board[index1 + 1][index2] === 1) {
-            twoNewIndex();
+            oneBlockShip();
             console.log("if#4 "+index1+index2);
             issue++;
           };}
           //   //checking the bottom row
         if (index1 === 9) {
           if (board[index1 - 1][index2] === 1) {
-            twoNewIndex();
+            oneBlockShip();
             console.log("if#5 "+index1+index2);
             issue++;
               };}
@@ -139,11 +147,11 @@ function placeShip() {
         if ((!(index1 === 0)) && (!(index1 === 9))) {
           if ((board[index1 + 1][index2] === 1) ||
             (board[index1 - 1][index2] === 1)) {
-              twoNewIndex();
+              oneBlockShip();
               console.log("#6" + index1 + index2);
             };};
         if (board[index1][index2] != 0){
-          twoNewIndex();
+            oneBlockShip();
           console.log("same spot "+index1+index2);
           issue++;
         };
@@ -160,5 +168,5 @@ function placeShip() {
                 answerKey.push(index1,index2);
               };
             }
-
-              placeShip();
+              //
+              // placeShip();
