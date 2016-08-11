@@ -17,7 +17,7 @@ $(document).ready(function(){
     };
     createTable();
 
-    // function shoot(x,y){
+    // function shoot(x,y)
     // each time a user clicks a space on the board,
     $("td").on("click",
     // the function will add the class to change the color and disable the space.
@@ -30,7 +30,7 @@ $(document).ready(function(){
           // adds the class to change the screen color to show we already have shot at this space and disable the click ability
           $(this).addClass("shot").off("click");
 
-        // if the array has a 1 in this spot, add teh class "hit" to change the color to red and disable the click function
+          // if the array has a 1 in this spot, add teh class "hit" to change the color to red and disable the click function
         }else{
           $("#"+($(this).attr("id"))).addClass("hit").off("click");
           counterOfHits ++;
@@ -46,17 +46,19 @@ $(document).ready(function(){
         $("#gameStatus").text("YOU WIN!");
       }
       if (counterOfHits < 5 && torpedoesLeft === 0)
-        {$("#gameStatus").text("YOU LOSE!");
-        //accesses indexes saved in var answerkey and adds the class 'hit'
-        $("#" + answerKey[0] + answerKey [1]).addClass("hit");
-        $("#" + answerKey[2] + answerKey [3]).addClass("hit");
-        $("#" + answerKey[4] + answerKey [5]).addClass("hit");
-        $("#" + answerKey[6] + answerKey [7]).addClass("hit");
-        $("#" + answerKey[8] + answerKey [9]).addClass("hit");
-      }
+      {$("#gameStatus").text("YOU LOSE!");
+      //accesses indexes saved in var answerkey and adds the class 'hit'
+      $("#" + answerKey[0] + answerKey [1]).addClass("hit");
+      $("#" + answerKey[2] + answerKey [3]).addClass("hit");
+      $("#" + answerKey[4] + answerKey [5]).addClass("hit");
+      $("#" + answerKey[6] + answerKey [7]).addClass("hit");
+      $("#" + answerKey[8] + answerKey [9]).addClass("hit");
+    }
   }); //end of on click
 });// end of document.ready
-  // creating variable to show number of torpedoes left to shoot
+
+
+// creating variable to show number of torpedoes left to shoot
 var torpedoesLeft = 25;
 var board = [];
 var counterOfHits = 0;
@@ -82,15 +84,85 @@ function placeShip() {
   while (counterOfShips < 5) {
     var index1 = Math.floor(Math.random() * 10);
     var index2 = Math.floor(Math.random() * 10);
-    while (board[index1][index2] != 0){
-      index1 = Math.floor(Math.random() * 10);
-      index2 = Math.floor(Math.random() * 10);
-    }
-    board[index1][index2] = 1;
-    counterOfShips += 1;
-    console.log(index1,index2);
-    //adds the index to an empty array and saves in var answerkey
-    answerKey.push(index1,index2);
-  }
-}
-placeShip();
+      console.log(""+index1+index2);
+
+      var issue = 0;
+      function checkTr(){
+        console.log("running checkTr");
+
+        // checking each tr for ships right only
+        if (index2 === 0) {
+          while (board[index1][index2 + 1] === 1) {
+            index1 = Math.floor(Math.random() * 10);
+            index2 = Math.floor(Math.random() * 10);
+            console.log("if#1 "+index1+index2);
+            issue++;
+          };
+        };
+        //checking each tr for ships left only
+        if (index2 === 9) {
+          while (board[index1][index2 - 1] === 1) {
+            index1 = Math.floor(Math.random() * 10);
+            index2 = Math.floor(Math.random() * 10);
+            console.log("if#2 "+index1+index2);
+            issue++;
+          };
+        };
+        //for the inside rows check both left and right spaces for a ship
+        if (index2 != 0 && index2 != 9) {
+          while ((board[index1][index2 - 1] === 1) ||
+          (board[index1][index2 + 1] === 1)) {
+            index1 = Math.floor(Math.random() * 10);
+            index2 = Math.floor(Math.random() * 10);
+            console.log("if#3 "+index1+index2);
+            issue++;
+          };
+        };
+        if (board[index1][index2] != 0){
+          index1 = Math.floor(Math.random() * 10);
+          index2 = Math.floor(Math.random() * 10);
+          console.log("same spot "+index1+index2);
+          issue++;
+        };
+      };
+          checkTr();
+          if (issue > 0){
+            issue = 0;
+             checkTr();
+          }
+      //
+      //
+      //
+
+            //vertical td
+            //checking the top row
+            // if (index1 ===0) {
+            //   while (board[index1 + 1][index2] === 1) {
+            //     index1 = Math.floor(Math.random() * 10);
+            //     index2 = Math.floor(Math.random() * 10);
+            //   };}
+            //   //checking the bottom row
+            //   if (index1 === 9) {
+            //     while (board[index1 - 1][index2] === 1) {
+            //       index1 = Math.floor(Math.random() * 10);
+            //       index2 = Math.floor(Math.random() * 10);
+            //     };}
+            //     //checking middle rows
+            //     if (index1 != 0 && index1 != 9) {
+            //       while ((board[index1 + 1][index2] === 1) ||
+            //       (board[index1 - 1][index2] === 1)) {
+            //         console.log("" +index1 + index2);
+            //         index1 = Math.floor(Math.random() * 10);
+            //         index2 = Math.floor(Math.random() * 10);
+            //         console.log("" + index1 + index2);
+            //       };};
+           //end of loop to place ship in a new spot is spot full
+                board[index1][index2] = 1;
+                counterOfShips += 1;
+                console.log(index1,index2);
+                //adds the index to an empty array and saves in var answerkey
+                answerKey.push(index1,index2);
+              };
+            }
+
+              placeShip();
