@@ -85,6 +85,11 @@ function placeShip() {
     var index1 = Math.floor(Math.random() * 10);
     var index2 = Math.floor(Math.random() * 10);
       console.log(""+index1+index2);
+      // creating a function to re-assign two variables to two random values
+      function twoNewIndex() {
+        index1 = Math.floor(Math.random() * 10);
+        index2 = Math.floor(Math.random() * 10);
+      }
 
       var issue = 0;
       function checkTr(){
@@ -92,35 +97,53 @@ function placeShip() {
 
         // checking each tr for ships right only
         if (index2 === 0) {
-          while (board[index1][index2 + 1] === 1) {
-            index1 = Math.floor(Math.random() * 10);
-            index2 = Math.floor(Math.random() * 10);
+          if (board[index1][index2 + 1] === 1) {
+            twoNewIndex();
             console.log("if#1 "+index1+index2);
             issue++;
           };
         };
         //checking each tr for ships left only
         if (index2 === 9) {
-          while (board[index1][index2 - 1] === 1) {
-            index1 = Math.floor(Math.random() * 10);
-            index2 = Math.floor(Math.random() * 10);
+          if (board[index1][index2 - 1] === 1) {
+            twoNewIndex();
             console.log("if#2 "+index1+index2);
             issue++;
           };
         };
         //for the inside rows check both left and right spaces for a ship
-        if (index2 != 0 && index2 != 9) {
-          while ((board[index1][index2 - 1] === 1) ||
+        if ((!(index2 === 0)) && (!(index2 === 9))) {
+          if ((board[index1][index2 - 1] === 1) ||
           (board[index1][index2 + 1] === 1)) {
-            index1 = Math.floor(Math.random() * 10);
-            index2 = Math.floor(Math.random() * 10);
+            twoNewIndex();
             console.log("if#3 "+index1+index2);
             issue++;
           };
         };
+        //vertical td
+        //checking the top row
+        if (index1 ===0) {
+          if (board[index1 + 1][index2] === 1) {
+            twoNewIndex();
+            console.log("if#4 "+index1+index2);
+            issue++;
+          };}
+          //   //checking the bottom row
+        if (index1 === 9) {
+          if (board[index1 - 1][index2] === 1) {
+            twoNewIndex();
+            console.log("if#5 "+index1+index2);
+            issue++;
+              };}
+              //checking middle rows
+        if ((!(index1 === 0)) && (!(index1 === 9))) {
+          if ((board[index1 + 1][index2] === 1) ||
+            (board[index1 - 1][index2] === 1)) {
+              twoNewIndex();
+              console.log("#6" + index1 + index2);
+            };};
         if (board[index1][index2] != 0){
-          index1 = Math.floor(Math.random() * 10);
-          index2 = Math.floor(Math.random() * 10);
+          twoNewIndex();
           console.log("same spot "+index1+index2);
           issue++;
         };
@@ -130,33 +153,6 @@ function placeShip() {
             issue = 0;
              checkTr();
           }
-      //
-      //
-      //
-
-            //vertical td
-            //checking the top row
-            // if (index1 ===0) {
-            //   while (board[index1 + 1][index2] === 1) {
-            //     index1 = Math.floor(Math.random() * 10);
-            //     index2 = Math.floor(Math.random() * 10);
-            //   };}
-            //   //checking the bottom row
-            //   if (index1 === 9) {
-            //     while (board[index1 - 1][index2] === 1) {
-            //       index1 = Math.floor(Math.random() * 10);
-            //       index2 = Math.floor(Math.random() * 10);
-            //     };}
-            //     //checking middle rows
-            //     if (index1 != 0 && index1 != 9) {
-            //       while ((board[index1 + 1][index2] === 1) ||
-            //       (board[index1 - 1][index2] === 1)) {
-            //         console.log("" +index1 + index2);
-            //         index1 = Math.floor(Math.random() * 10);
-            //         index2 = Math.floor(Math.random() * 10);
-            //         console.log("" + index1 + index2);
-            //       };};
-           //end of loop to place ship in a new spot is spot full
                 board[index1][index2] = 1;
                 counterOfShips += 1;
                 console.log(index1,index2);
