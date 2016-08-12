@@ -1,0 +1,22 @@
+h1 {
+  color:blue;
+  text-align: center;
+}
+
+td {
+  border-style: solid;
+  height: 50px;
+  width: 50px;
+}
+table{
+  border-collapse: collapse;
+  display: flex;
+  justify-content: center;
+}
+
+.shot{
+  background-color: black;
+}
+.hit{
+  background-color: red;
+}
