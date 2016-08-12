@@ -1,7 +1,8 @@
+
 $(document).ready(function(){
   //purpose: creates 10x 10 table
   //signature: none
-  //examples: self explanatory
+  //examples: createTable(); --> 10x10 table
   function createTable(){
     //loop to add 10 rows
     for (var rowsCounter = 0; rowsCounter < 10; rowsCounter++) {
@@ -10,7 +11,7 @@ $(document).ready(function(){
       //loop to add 10 columns
       for (var colCounter = 0; colCounter < 10;
         colCounter++){
-          //adds 10 columns to the last row of the table
+          //adds 10 columns to the last row of the table with an ID
           $("tr").last().append("<td id="+ rowsCounter + colCounter +"></td>")
         }
       }
@@ -54,7 +55,8 @@ $(document).ready(function(){
     }
   }); //end of on click
 });// end of document.ready
-
+// ********************************************************
+// ********************************************************
 
 // creating variable to show number of torpedoes left to shoot
 var torpedoesLeft = 25;
@@ -84,30 +86,32 @@ createBoard();
         index1 = Math.floor(Math.random() * 10);
         index2 = Math.floor(Math.random() * 5);
         for (var i = 0; i < 5; i++) {
-          board[index1][index2 + i];
+          board[index1][index2 + i] = 1;
           answerKey.push(index1, index2 + i);
-      };},
+            console.log(index1, index2)
+      };
+    },
     block4: function () {
       index1 = Math.floor(Math.random() * 10);
       index2 = Math.floor(Math.random() * 6);
-      for (var i = 0; i < 4; i++) {
-        board[index1][index2 + i];
-        answerKey.push(index1, index2 + i);
-      };},
+
+    },
     block3: function () {
       index1 = Math.floor(Math.random() * 10);
       index2 = Math.floor(Math.random() * 8);
-      for (var i = 0; i < 3; i++) {
-        board[index1][index2 + i];
-        answerKey.push(index1, index2 + i);
-      };},
+      // for (var i = 0; i < 3; i++) {
+      //   board[index1][index2 + i];
+      //   answerKey.push(index1, index2 + i);
+      // };
+    },
     block2: function () {
       index1 = Math.floor(Math.random() * 10);
       index2 = Math.floor(Math.random() * 9);
-      for (var i = 0; i < 2; i++) {
-        board[index1][index2 + i];
-        answerKey.push(index1, index2 + i);
-      };},
+      // for (var i = 0; i < 2; i++) {
+      //   board[index1][index2 + i];
+      //   answerKey.push(index1, index2 + i);
+      // };
+    },
     block1: function () {
        index1 = Math.floor(Math.random() * 10);
        index2 = Math.floor(Math.random() * 10);
@@ -118,6 +122,97 @@ createBoard();
     }
   };
 
+  ships.block5();
+
+
+
+// purpose: to place 2 4-block ships on the board without overlapping the 5-block ship that has already been placed
+function fourBlockShip(){
+  var counterOfShips = 0
+  while (counterOfShips < 2){
+    ships.block4();
+    console.log("first random numbers of while " + index1 + index2);
+    var issue = 0;
+    function checkTd() {
+      console.log("checkingTd");
+      for (i = 0; i < 4; i++){
+        if (board[index1][index2 + i] === 1){
+          issue++;
+          ships.block4();
+          console.log("2nd randoms for " + index1 + index2);
+        };
+        // if (board[index1 + i][index2] ===1 ){
+        //   issue++;
+        //   ships.block4();
+        //   console.log("2nd randoms for COL" + index1 + index2);
+        // }
+      };
+      // for (i = 0; i < 4; i++){
+      //   if (board[index1 ][index + i] === 1){
+      //     issue++;
+      //     ships.block4();
+      //   }
+      // }
+    };
+    checkTd();
+    if (issue > 0) {
+        issue = 0;
+      checkTd();
+    };
+  for (var i = 0; i < 4; i++) {
+      board[index1][index2 + i] = 1;
+      answerKey.push(index1, index2 + i);
+      console.log(counterOfShips);
+    };
+    counterOfShips++;
+  }
+}
+
+fourBlockShip();
+
+function threeBlockShip(){
+  var counterOfShips = 0
+  while (counterOfShips < 2){
+    ships.block3();
+    console.log("first random numbers of while " + index1 + index2);
+    var issue = 0;
+    function checkTd() {
+      console.log("checkingTd");
+      for (i = 0; i < 3; i++){
+        if (board[index1][index2 + i] === 1){
+          issue++;
+          ships.block3();
+          console.log("2nd randoms for " + index1 + index2);
+        };
+        // if (board[index1 + i][index2] ===1 ){
+        //   issue++;
+        //   ships.block4();
+        //   console.log("2nd randoms for COL" + index1 + index2);
+        // }
+      };
+      // for (i = 0; i < 4; i++){
+      //   if (board[index1 ][index + i] === 1){
+      //     issue++;
+      //     ships.block4();
+      //   }
+      // }
+    };
+    checkTd();
+    if (issue > 0) {
+        issue = 0;
+      checkTd();
+    };
+  for (var i = 0; i < 3; i++) {
+      board[index1][index2 + i] = 1;
+      answerKey.push(index1, index2 + i);
+      console.log(counterOfShips);
+    };
+    counterOfShips++;
+  }
+}
+
+threeBlockShip();
+
 //purpose: to place 5 ships at a random index in the array
 //signature: nothing --> returns index
 //examples: placeShip --> board[0][0]= 1
@@ -125,7 +220,7 @@ function placeShip() {
   //sets the number of ships to zero before the function is run
   var counterOfShips = 0;
   //if the counterOfShips is less than 5, the computer will pick a random number and defines it as var index
-  while (counterOfShips < 5) {
+  while (counterOfShips < 1) {
 
     ships.block1();
       // creating a function to re-assign two variables to two random values
@@ -203,5 +298,5 @@ function placeShip() {
                 answerKey.push(index1,index2);
               };
             }
-              //
-              placeShip();
+              // //
+  placeShip();
